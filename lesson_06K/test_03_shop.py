@@ -1,13 +1,20 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.firefox.service import Service
+import os
 
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Firefox()
-    yield driver
-    driver.quit()
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    gecko_driver_path = os.path.join(current_dir, 'geckodriver.exe')
+    service = Service(gecko_driver_path)
+    driver = webdriver.Firefox(service=service)
+    try:
+        yield driver
+    finally:
+        driver.quit()
 
 
 @pytest.mark.positive
@@ -40,7 +47,4 @@ def test_sum(driver):
 
     expected_amount = "$58.29"
 
-    if expected_amount in total:
-        print("Сумма совпадает")
-    else:
-        print("Сумма не совпадает")
+    assert expected_amount in total, f"Ожидаемая сумма {expected_amount} не совпадает с фактической {total}"

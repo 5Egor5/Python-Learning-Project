@@ -47,4 +47,6 @@ def test_sum(driver):
 
     expected_amount = "$58.29"
 
-    assert expected_amount in total, f"Ожидаемая сумма {expected_amount} не совпадает с фактической {total}"
+    assert expected_amount in total, (
+        f"Ожидаемая сумма {expected_amount} не совпадает с фактической {total}"
+        )

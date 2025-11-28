@@ -57,7 +57,8 @@ def test_validation(driver):
                 EC.presence_of_element_located(By.CSS_SELECTOR, a_loc)
             )
 
-            assert "alert-success" in alert_element.get_attribute("class"), f"Поле {field} не подсвечено зелёным"
+            assert "alert-success" in alert_element.get_attribute("class"), (
+                f"Поле {field} не подсвечено зелёным")
 
         except Exception as e:
             print(f"Ошибка при проверке поля {field}: {str(e)}")
